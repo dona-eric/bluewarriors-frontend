@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 // NOTE: Assurez-vous que l'API tourne sur ce port.
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+const API_BASE_URL = 'https://bluewarrior.leapcell.app/api/v1';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');

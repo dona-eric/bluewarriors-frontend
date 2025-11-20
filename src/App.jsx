@@ -86,7 +86,7 @@ function App() {
       const errorMessage = {
         type: 'bot',
         text: error.message.includes('Failed to fetch') 
-          ? 'Impossible de se connecter au serveur. Vérifiez que l\'API est démarrée sur http://localhost:8000'
+          ? 'Impossible de se connecter au serveur. Vérifiez que l\'API est démarrée'
           : `Désolé, une erreur est survenue : ${error.message}`,
         error: true
       };

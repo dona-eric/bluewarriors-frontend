@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+
 /* ==================== RESET & BASE STYLES ==================== */
 * {
   margin: 0;
@@ -8,7 +9,7 @@
 }
 
 :root {
-  /* Palette Novembre Bleu - Optimisée */
+  /* Palette Novembre Bleu */
   --primary-blue: #2563eb;
   --secondary-blue: #3b82f6;
   --light-blue: #60a5fa;
@@ -23,7 +24,7 @@
   --yellow: #f59e0b;
   --teal: #14b8a6;
   
-  /* Neutres - Améliorés */
+  /* Neutres */
   --white: #ffffff;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
@@ -36,14 +37,13 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   
-  /* Espacements Standardisés */
+  /* Espacements */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
   
   /* Border Radius */
   --radius-sm: 0.375rem;
@@ -53,70 +53,49 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
   
-  /* Shadows Professionnelles */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Max Widths Standardisés */
-  --max-width-sm: 640px;
-  --max-width-md: 768px;
-  --max-width-lg: 1024px;
-  --max-width-xl: 1280px;
-  --max-width-2xl: 1536px;
 }
 
 /* ==================== BODY & HTML ==================== */
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--gray-900);
   background-color: var(--gray-50);
   line-height: 1.6;
   overflow-x: hidden;
-  font-feature-settings: 'cv11', 'ss01';
 }
 
-/* ==================== TYPOGRAPHY PROFESSIONNELLE ==================== */
+/* ==================== TYPOGRAPHY ==================== */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   color: var(--gray-900);
   margin-bottom: var(--spacing-md);
   letter-spacing: -0.025em;
-  font-family: Georgia, 'Times New Roman', Times, free-serif;
 }
 
-/* h1 { 
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-}
-h2 { 
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 700;
-}
-h3 { 
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
-}
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
 h4 { font-size: 1.5rem; }
 h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; } */
+h6 { font-size: 1rem; }
 
 p {
   margin-bottom: var(--spacing-md);
@@ -134,7 +113,7 @@ a:hover {
   color: var(--primary-blue);
 }
 
-/* ==================== SCROLLBAR ÉLÉGANTE ==================== */
+/* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -147,7 +126,6 @@ a:hover {
 ::-webkit-scrollbar-thumb {
   background: var(--gray-400);
   border-radius: var(--radius-full);
-  transition: background var(--transition-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -159,180 +137,43 @@ a:hover {
   scrollbar-color: var(--gray-400) var(--gray-100);
 }
 
-/* ==================== CONTAINER & LAYOUT ==================== */
-.container {
-  width: 80%;
-  max-width: var(--max-width-xl);
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-}
-
-.container-narrow {
-  max-width: var(--max-width-lg);
-}
-
-.container-wide {
-  max-width: var(--max-width-2xl);
-}
-
-/* Centrage Cards Professionnel */
-.cards-grid {
-  display: grid;
-  gap: var(--spacing-lg);
-  max-width: var(--max-width-xl);
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
-}
-
-@media (min-width: 768px) {
-  .cards-grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .cards-grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .cards-grid-6 {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-@media (max-width: 767px) {
-  .cards-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==================== ANIMATIONS FLUIDES ==================== */
-@keyframes fade-in-smooth {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up-soft {
-  from { transform: translateY(40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
-}
+/* ==================== ANIMATIONS ==================== */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.02);
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
 }
 
 @keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Classes d'Animation */
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slide-in-down {
-  animation: slideInDown 0.6s ease-out forwards;
-}
-
-.animate-slide-in-up {
-  animation: slideInUp 0.6s ease-out forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.6s ease-out forwards;
-}
-
-.animate-pulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.animate-bounce {
-  animation: bounce 1s ease-in-out infinite;
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
+.animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+.animate-slide-in-down { animation: slideInDown 0.6s ease-out forwards; }
+.animate-slide-in-up { animation: slideInUp 0.6s ease-out forwards; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+.animate-bounce { animation: bounce 1s ease-in-out infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
 
 /* Delays pour animations échelonnées */
 .delay-600 { animation-delay: 600ms; }
@@ -343,7 +184,6 @@ a:hover {
 /* ==================== BUTTONS PROFESSIONNELS ==================== */
 button {
   font-family: inherit;
-  font-size: inherit;
   cursor: pointer;
   border: none;
   outline: none;
@@ -355,45 +195,13 @@ button:disabled {
   opacity: 0.5;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--radius-lg);
-  font-weight: 600;
-  transition: all var(--transition-fast);
-  white-space: nowrap;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
-  color: var(--white);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-secondary {
-  background: var(--gray-100);
-  color: var(--gray-700);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background: var(--gray-200);
-}
-
-/* ==================== INPUTS ÉLÉGANTS ==================== */
+/* ==================== INPUTS ==================== */
 input, textarea, select {
   width: 100%;
   padding: var(--spacing-md);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   font-family: inherit;
-  font-size: inherit;
   transition: all var(--transition-fast);
   background: var(--white);
   color: var(--gray-900);
@@ -402,15 +210,14 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--secondary-blue);
-  ring: 2px;
-  ring-color: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 input::placeholder, textarea::placeholder {
   color: var(--gray-400);
 }
 
-/* ==================== CARDS PROFESSIONNELLES ==================== */
+/* ==================== CARDS ==================== */
 .card {
   background: var(--white);
   border-radius: var(--radius-xl);
@@ -424,6 +231,7 @@ input::placeholder, textarea::placeholder {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
+
 
 .card-interactive {
   cursor: pointer;
@@ -465,49 +273,35 @@ input::placeholder, textarea::placeholder {
 .items-center { align-items: center; }
 .justify-center { justify-content: center; }
 .justify-between { justify-content: space-between; }
-.gap-1 { gap: var(--spacing-xs); }
-.gap-2 { gap: var(--spacing-sm); }
-.gap-3 { gap: var(--spacing-md); }
-.gap-4 { gap: var(--spacing-lg); }
-.gap-6 { gap: var(--spacing-xl); }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-10 { gap: 2.5rem; }
 
 .grid { display: grid; }
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 640px) {
-  html {
-    font-size: 14px;
+  html { font-size: 14px; }
+  
+  footer {
+    padding: 2rem 0 1rem;
   }
   
-  .container {
-    padding: 0 var(--spacing-md);
-  }
-  
-  .grid-cols-2,
-  .grid-cols-3,
-  .grid-cols-4,
-  .grid-cols-6 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  footer .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
-  .grid-cols-3,
-  .grid-cols-4,
-  .grid-cols-6 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .grid-cols-4,
-  .grid-cols-6 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  footer .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -521,15 +315,12 @@ input::placeholder, textarea::placeholder {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border-width: 0;
 }
 
 *:focus-visible {
   outline: 2px solid var(--secondary-blue);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
 }
-
 /* ==================== LOADING SPINNER ==================== */
 .spinner {
   border: 3px solid var(--gray-200);
@@ -542,40 +333,30 @@ input::placeholder, textarea::placeholder {
 
 /* ==================== SECTIONS SPACING ==================== */
 section {
-  padding: var(--spacing-3xl) 0;
+  padding: 3rem 0;
 }
 
 @media (max-width: 768px) {
   section {
-    padding: var(--spacing-2xl) 0;
+    padding: 2rem 0;
   }
 }
 
-/* ==================== PRINT STYLES ==================== */
+/* ==================== PRINT ==================== */
 @media print {
-  body {
-    background: white;
-  }
-  
-  .no-print {
-    display: none !important;
-  }
-  
-  * {
-    box-shadow: none !important;
-  }
+  body { background: white; }
+  .no-print { display: none !important; }
+  * { box-shadow: none !important; }
 }
 
-/* ==================== PERFORMANCE OPTIMIZATIONS ==================== */
+/* ==================== PERFORMANCE ==================== */
 .will-change-transform {
   will-change: transform;
 }
 
 .gpu-accelerated {
   transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
-
 /* ==================== DARK MODE READY (Optional) ==================== */
 @media (prefers-color-scheme: dark) {
   /* Vous pouvez ajouter des styles dark mode ici si nécessaire */
@@ -613,4 +394,187 @@ section {
 
 .hover-grow:hover {
   transform: scale(1.02);
+}
+
+
+/* ==================== FOOTER STYLES - COMPACT ==================== */
+footer {
+  background: linear-gradient(135deg, #22439e 0%, #274bc0 50%, #3058c4 100%);
+  color: white;
+  padding: 2.5rem 0 1.5rem;
+  margin-top: 4rem;
+}
+
+footer .max-w-6xl {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+footer h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+footer h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+footer p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+footer a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 0.875rem;
+}
+
+footer a:hover {
+  color: white;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer li {
+  margin-bottom: 0.5rem;
+}
+
+/* Footer Grid */
+footer .grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  footer .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Footer Newsletter */
+footer input[type="email"] {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+footer input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+footer input[type="email"]:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+footer button[type="submit"],
+footer button.bg-blue-600 {
+  background: #2563eb;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+footer button:hover {
+  background: #1d4ed8;
+}
+
+/* Footer Social Icons */
+footer .flex.gap-3 a,
+footer .flex.gap-4 a {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+footer .flex.gap-3 a:hover,
+footer .flex.gap-4 a:hover {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+/* Footer Urgences Cards */
+footer .bg-white\/5 {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+footer .bg-white\/5:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Footer Divider */
+footer .border-t {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0 1rem;
+  padding-top: 1.5rem;
+}
+
+/* Footer Bottom Bar */
+footer .flex-col.md\\:flex-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  footer .flex-col.md\\:flex-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+footer .text-blue-200 {
+  color: rgba(191, 219, 254, 1);
+}
+
+footer .text-blue-400 {
+  color: rgba(96, 165, 250, 0.5);
+}
+
+/* Footer Disclaimer */
+footer .bg-yellow-500\/10 {
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+footer .text-yellow-200 {
+  color: rgba(254, 240, 138, 1);
+  font-size: 0.75rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }

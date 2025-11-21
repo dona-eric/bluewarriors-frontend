@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 // NOTE: Assurez-vous que l'API tourne sur ce port.
-const API_BASE_URL = 'https://bluewarrior.leapcell.app/api/v1';
+const API_BASE_URL = 'https://bluewarrior.leapcell.app/v1';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -348,9 +348,9 @@ function App() {
                         msg.type === 'user' ? 'bg-blue-600' : 'bg-white border border-gray-200'
                       }`}>
                         {msg.type === 'user' ? (
-                          <Users className="w-4 h-4 text-white" />
+                          <Users className="w-6 h-4 text-white" />
                         ) : (
-                          <Shield className="w-4 h-4 text-blue-600" />
+                          <Shield className="w-6 h-4 text-blue-600" />
                         )}
                       </div>
 
@@ -626,10 +626,10 @@ function App() {
       }
     `}</style>
 
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div class="flex flex-col min-h-screen text-foreground bg-[hsl(var(--background))] relative">
       {/* Navigation */}
-      <nav className="bg-gray shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
+      <nav className="fixed w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))]/10 shadow-lg">
+        <div className="max-w-10xl mx-auto px-4">
           <div className="flex justify-between items-center h-16 md:h-20">
             <div 
               className="flex items-center gap-3 cursor-pointer group"
@@ -641,34 +641,49 @@ function App() {
               <span className="text-2xl font-extrabold text-gray-900 tracking-tight">Blue<span className="text-blue-600">Warriors</span></span>
             </div>
 
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
-              {[
-                { id: 'home', label: 'Accueil', icon: Home },
-                { id: 'chatbot', label: 'WarriorAI', icon: MessageSquare },
-                { id: 'dashboard', label: 'Data', icon: BarChart3 }
-              ].map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => setCurrentPage(item.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-all font-medium text-sm ${
-                    currentPage === item.id
-                      ? 'bg-white text-blue-700 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
-                  }`}
-                >
-                  <item.icon className={`w-4 h-4 ${currentPage === item.id ? 'text-blue-600' : 'text-gray-500'}`} />
-                  {item.label}
-                </button>
-              ))}
+            {/* Desktop Menu - CORRIGÉ */}
+            <div className="hidden sm:flex items-center gap-6">
+              <button 
+                onClick={() => setCurrentPage('home')}
+                className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
+                  currentPage === 'home' 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-slate-600 hover:text-blue-600 hover:bg-gray-100'
+                }`}
+              >
+                Accueil
+              </button>
+              <button 
+                onClick={() => setCurrentPage('chatbot')}
+                className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
+                  currentPage === 'chatbot' 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-slate-600 hover:text-blue-600 hover:bg-gray-100'
+                }`}
+              >
+                WarriorAI
+              </button>
+              <button 
+                onClick={() => setCurrentPage('dashboard')}
+                className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
+                  currentPage === 'dashboard' 
+                    ? 'text-blue-600 bg-blue-50' 
+                    : 'text-slate-600 hover:text-blue-600 hover:bg-gray-100'
+                }`}
+              >
+                Statistiques
+              </button>
             </div>
 
-            <div className="hidden md:flex">
-               <button className="bg-blue-900 text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-blue-800 transition shadow-md shadow-blue-900/20">
-                  Faire un don
-               </button>
+            {/* Bouton Faire un don - CORRIGÉ */}
+            <div className="hidden md:flex gap-2">
+              <button 
+                onClick={() => {/* Action pour le don */}}
+                className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-full shadow-lg hover:shadow-blue-300/30 hover:scale-105 transition-all"
+              >
+                Faire un don
+              </button>
             </div>
-
              {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -715,100 +730,173 @@ function App() {
         {currentPage === 'dashboard' && <DashboardPage />}
       </main>
 
-      {/* FOOTER COMPLET ET AMÉLIORÉ */}
-      <footer className="bg-blue-500 text-white pt-10 pb-8 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      {/* FOOTER OPTIMISÉ - VERSION FINALE */}
+      <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-10 mt-16">
+        <div className="max-w-6xl mx-auto px-6">
+          
+          {/* Grid Principal - 3 Colonnes */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
             
-            {/* Brand Section */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <div className="bg-blue-600 p-1.5 rounded-lg">
-                   <Shield className="w-6 h-6 text-white" />
+            {/* Colonne 1 : À propos + Newsletter */}
+            <div className="space-y-6">
+              {/* Brand */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="bg-blue-600 p-1.5 rounded-lg">
+                    <Shield className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold">BlueWarriors</h3>
                 </div>
-                <h3 className="text-2xl font-bold tracking-tight text-align:center">BlueWarriors</h3>
+                <p className="text-blue-100 text-sm leading-relaxed">
+                  Plateforme de sensibilisation contre le cancer de la prostate au Bénin.
+                </p>
               </div>
-              <p className="text-white-600 leading-relaxed mb-6">
-                Une initiative mondiale dédiée à la lutte contre le cancer de la prostate par l'innovation technologique, la sensibilisation et le soutien communautaire.
-              </p>
-              <div className="flex gap-4">
+
+              {/* Newsletter */}
+              <div>
+                <h4 className="text-sm font-bold mb-3 text-blue-200">Newsletter</h4>
+                <div className="flex gap-2">
+                  <input 
+                    type="email" 
+                    placeholder="Votre email" 
+                    className="flex-1 bg-white/10 text-white text-sm px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 placeholder-blue-200"
+                  />
+                  <button className="bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-lg transition-colors">
+                    <Send className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Réseaux sociaux */}
+              <div className="flex gap-3">
                 {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all">
-                    <Icon className="w-5 h-5" />
+                  <a 
+                    key={i} 
+                    href="#" 
+                    className="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all"
+                  >
+                    <Icon className="w-4 h-4" />
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Colonne 2 : Urgences Bénin */}
             <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Liens Rapides</h4>
-              <ul className="space-y-4">
-                {[
+              <h4 className="text-sm font-bold mb-4 text-red-300 flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                Urgences Santé Bénin
+              </h4>
+              <ul className="space-y-3">
+                <li>
+                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                    <Hospital className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white text-sm">SAMU Bénin</p>
+                      <a href="tel:+22921307336" className="text-blue-200 hover:text-white transition text-sm">
+                        +229 21 30 73 36
+                      </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                    <Hospital className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white text-sm">CNHU Cotonou</p>
+                      <a href="tel:+22921300656" className="text-blue-200 hover:text-white transition text-sm">
+                        +229 21 30 06 56
+                      </a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                    <HeartPulse className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white text-sm">Centre Anti-Cancer</p>
+                      <a href="tel:+22921331515" className="text-blue-200 hover:text-white transition text-sm">
+                        +229 21 33 15 15
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Colonne 3 : Navigation + Contact */}
+            <div className="space-y-6">
+              {/* Navigation */}
+              <div>
+                <h4 className="text-sm font-bold mb-3 text-blue-200">Navigation</h4>
+                <ul className="space-y-2">
+                  {[
                     { label: "Accueil", id: 'home' },
                     { label: "WarriorAI", id: 'chatbot' },
-                    { label: "Données Mondiales", id: 'dashboard' },
+                    { label: "Statistiques", id: 'dashboard' },
                     { label: "Faire un don", id: null }
-                ].map((link, i) => (
-                  <li key={i}>
-                    <button 
+                  ].map((link, i) => (
+                    <li key={i}>
+                      <button 
                         onClick={() => link.id && setCurrentPage(link.id)}
-                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm flex items-center gap-2 group"
-                    >
-                      <ChevronRight className="w-3 h-3 text-gray-600 group-hover:text-blue-500" />
-                      {link.label}
-                    </button>
+                        className="text-blue-200 hover:text-white transition-colors text-sm flex items-center gap-2 group"
+                      >
+                        <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {link.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <h4 className="text-sm font-bold mb-3 text-blue-200">Contact</h4>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-sm">
+                    <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-blue-100">Cotonou, Bénin</span>
                   </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Contactez-nous</h4>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-gray-400 text-sm">
-                  <MapPin className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
-                  <span>Cotonou, Bénin<br/>Avenue Jean-Paul II</span>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400 text-sm">
-                  <Phone className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                  <a href="tel:+2290151344289" className="hover:text-white transition">+229 01 51 34 42 89</a>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400 text-sm">
-                  <Mail className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                  <a href="mailto:contact@bluewarriors.org" className="hover:text-white transition">contact@bluewarriors.org</a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Newsletter */}
-            <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Restez informé</h4>
-              <p className="text-gray-400 text-sm mb-4">Recevez les dernières actualités et conseils de prévention.</p>
-              <div className="flex flex-col gap-3">
-                <input 
-                    type="email" 
-                    placeholder="Votre email" 
-                    className="bg-gray-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-700"
-                />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors">
-                    S'inscrire
-                </button>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Phone className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <a href="tel:+2290151344289" className="text-blue-200 hover:text-white transition">
+                      +229 01 51 34 42 89
+                    </a>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Mail className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <a href="mailto:donaerickoulodji@gmail.com" className="text-blue-200 hover:text-white transition break-all">
+                      donaerickoulodji@gmail.com
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
-
           </div>
 
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-sm">
-              © 2024 BlueWarriors. Tous droits réservés.
+          {/* Séparateur */}
+          <div className="border-t border-blue-700/50 my-6"></div>
+
+          {/* Bottom Bar */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <p className="text-blue-200">
+              © 2025 BlueWarriors • Novembre Bleu
             </p>
-            <div className="flex gap-6 text-sm text-gray-500">
+            <div className="flex gap-4 text-blue-200">
               <a href="#" className="hover:text-white transition">Confidentialité</a>
-              <a href="#" className="hover:text-white transition">Conditions</a>
-              <a href="#" className="hover:text-white transition">Cookies</a>
+              <span className="text-blue-400">•</span>
+              <a href="#" className="hover:text-white transition">Mentions légales</a>
+              <span className="text-blue-400">•</span>
+              <a href="#" className="hover:text-white transition">CGU</a>
             </div>
+          </div>
+
+          {/* Disclaimer */}
+          <div className="mt-6 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+            <p className="text-xs text-yellow-200 text-center flex items-center justify-center gap-2">
+              <Activity className="w-3 h-3" />
+              En cas d'urgence médicale, appelez le SAMU au +229 21 30 73 36
+            </p>
           </div>
         </div>
       </footer>

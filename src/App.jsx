@@ -4,7 +4,7 @@ import {
   Home, BarChart3, Shield, Phone, Mail, MapPin, HeartPulse, Hospital, 
   ChevronRight, Facebook, Twitter, Instagram, Linkedin, ExternalLink 
 } from 'lucide-react';
-
+import PreventionPage from './components/prevent';
 // NOTE: Assurez-vous que l'API tourne sur ce port.
 const API_BASE_URL = 'https://bluewarrior.leapcell.app/v1';
 
@@ -15,6 +15,71 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef(null);
+
+
+  /// effets nav
+  const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 10);
+  };
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+/// contacts
+const emergencyContacts = [
+  {
+    label: "SAMU Bénin",
+    value: "112",
+    type: "phone",
+    icon: Phone,
+    color: "text-red-400",
+    href: "tel:112",
+  },
+  {
+    label: "CNHU Cotonou",
+    value: "+229 21 30 06 56",
+    type: "phone",
+    icon: Phone,
+    color: "text-blue-400",
+    href: "tel:+22921300656",
+  },
+  {
+  label: "Centre Cancérologique de Cotonou",
+  value: "+229 01 97 27 47 47",
+  type: "phone",
+  icon: Phone,
+  href: "tel:+2290197274747",
+  color: "text-green-400",
+},
+{
+  label: "Centre Cancérologique de Cotonou",
+  value: "serposdo@yahoo.fr",
+  type: "email",
+  icon: Mail,
+  href: "mailto:serposdo@yahoo.fr",
+  color: "text-yellow-400",
+},
+ {
+     label: "Information Santé",
+     value: "contact@sante.bj",
+     type: "email",
+     icon: Mail,
+     color: "text-yellow-400",
+     href: "mailto:contact@sante.bj",
+ },
+ {
+     label: "Ministère de la Santé",
+     value: "www.sante.gouv.bj",
+     type: "website",
+     icon: Globe,
+     color: "text-purple-400",
+     href: "https://sante.gouv.bj",
+ },
+];
+
 
   // --- Données (States) ---
   const [stats] = useState({
@@ -207,14 +272,14 @@ function App() {
               { 
                 id: 'prevention', 
                 title: 'Prévention', 
-                desc: 'Découvrez les gestes simples et les habitudes de vie pour réduire les risques.', 
+                desc: 'Découvrez les gestes simples, les actions et les habitudes de vie pour réduire les risques.', 
                 icon: Shield, 
                 color: 'green' 
               }
             ].map((card, idx) => (
               <div 
                 key={idx}
-                onClick={() => card.id !== 'prevention' && setCurrentPage(card.id)}
+                onClick={() => setCurrentPage(card.id)}
                 className={`bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border-t-4 border-${card.color}-500 group`}
               >
                 <div className={`w-16 h-16 rounded-2xl bg-${card.color}-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
@@ -322,8 +387,8 @@ function App() {
                 <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-100">
                   <Shield className="w-10 h-10 text-blue-600" />
                 </div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Bonjour, je suis WarriorAI</h2>
-                <p className="text-gray-500 mb-10 text-center max-w-md">Votre assistant virtuel dédié à la prévention et à l'information sur le cancer de la prostate.</p>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Bonjour, Je suis WarriorAI</h2>
+                <p className="text-gray-500 mb-10 text-center max-w-md">Warrior est un assistant qui vous fournir des informations sur les préventions, les risques, les conséquences liées aux cancer de la prostate.</p>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
                   {suggestedQuestions.map((q, idx) => (
@@ -628,8 +693,11 @@ function App() {
 
     <div class="flex flex-col min-h-screen text-foreground bg-[hsl(var(--background))] relative">
       {/* Navigation */}
-      <nav className="fixed w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))]/10 shadow-lg">
-        <div className="max-w-10xl mx-auto px-4">
+      <nav className={`transition-all duration-300 ` +(scrolled? "fixed top-0 w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))/10] shadow-lg": "relative bg-transparent")
+      }
+      >
+
+        <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16 md:h-20">
             <div 
               className="flex items-center gap-3 cursor-pointer group"
@@ -642,7 +710,7 @@ function App() {
             </div>
 
             {/* Desktop Menu - CORRIGÉ */}
-            <div className="hidden sm:flex items-center gap-6">
+            <div className="hidden sm:flex items-center gap-4">
               <button 
                 onClick={() => setCurrentPage('home')}
                 className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
@@ -728,10 +796,11 @@ function App() {
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'chatbot' && <ChatbotPage />}
         {currentPage === 'dashboard' && <DashboardPage />}
+        {currentPage === 'prevention' && <PreventionPage setCurrentPage={setCurrentPage} />}
       </main>
 
       {/* FOOTER OPTIMISÉ - VERSION FINALE */}
-      <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-10 mt-16">
+      <footer className="bg-gradient-to-br from-blue-300 via-blue-500 to-blue-700 text-white py-10 mt-16">
         <div className="max-w-6xl mx-auto px-6">
           
           {/* Grid Principal - 3 Colonnes */}
@@ -769,13 +838,20 @@ function App() {
 
               {/* Réseaux sociaux */}
               <div className="flex gap-3">
-                {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                  <a 
-                    key={i} 
-                    href="#" 
+                {[
+                  { icon: Facebook, url: "https://facebook.com/dtech-africa" },
+                  { icon: Twitter, url: "https://twitter.com/dtech-africa" },
+                  { icon: Instagram, url: "https://instagram.com/dtech" },
+                  { icon: Linkedin, url: "https://linkedin.com/in/dtech-afric" }
+                ].map((item, i) => (
+                  <a
+                    key={i}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all"
                   >
-                    <Icon className="w-4 h-4" />
+                    <item.icon className="w-4 h-4" />
                   </a>
                 ))}
               </div>
@@ -787,40 +863,30 @@ function App() {
                 <Phone className="w-4 h-4" />
                 Urgences Santé Bénin
               </h4>
+
               <ul className="space-y-3">
-                <li>
-                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-                    <Hospital className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-semibold text-white text-sm">SAMU Bénin</p>
-                      <a href="tel:+22921307336" className="text-blue-200 hover:text-white transition text-sm">
-                        +229 21 30 73 36
-                      </a>
+                {emergencyContacts.map((item, i) => (
+                  <li key={i}>
+                    <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
+                      
+                      {/* Icône dynamique */}
+                      <item.icon className={`w-4 h-4 ${item.color} flex-shrink-0 mt-0.5`} />
+
+                      {/* Label + Lien */}
+                      <div>
+                        <p className="font-semibold text-white text-sm">{item.label}</p>
+                        <a
+                          href={item.href}
+                          target={item.type === "website" ? "_blank" : undefined}
+                          className="text-blue-200 hover:text-white transition text-sm break-all"
+                        >
+                          {item.value}
+                        </a>
+                      </div>
+
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-                    <Hospital className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-semibold text-white text-sm">CNHU Cotonou</p>
-                      <a href="tel:+22921300656" className="text-blue-200 hover:text-white transition text-sm">
-                        +229 21 30 06 56
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-start gap-2 p-2.5 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-                    <HeartPulse className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-semibold text-white text-sm">Centre Anti-Cancer</p>
-                      <a href="tel:+22921331515" className="text-blue-200 hover:text-white transition text-sm">
-                        +229 21 33 15 15
-                      </a>
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                ))}
               </ul>
             </div>
 

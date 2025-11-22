@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Send, Activity, Users, TrendingUp, Globe, Menu, X, MessageSquare, 
-  Home, BarChart3, Shield, Phone, Mail, MapPin, HeartPulse, Hospital, 
-  ChevronRight, Facebook, Twitter, Instagram, Linkedin, ExternalLink 
-} from 'lucide-react';
+import { Send, Activity, Users, TrendingUp, Globe, Menu, X, MessageSquare, Home, BarChart3, Shield, Phone, Mail, MapPin, HeartPulse, Hospital,ChevronRight, Facebook, Twitter, Instagram, Linkedin, ExternalLink } from 'lucide-react';
 import PreventionPage from './components/prevent';
-// NOTE: Assurez-vous que l'API tourne sur ce port.
+import logo from "./assets/prostate_cancer.jpg"
+
+// NOTE: API DEPLOYÉ SUR LEAPCELL.
 const API_BASE_URL = 'https://bluewarrior.leapcell.app/v1';
 
 function App() {
@@ -62,21 +60,21 @@ const emergencyContacts = [
   href: "mailto:serposdo@yahoo.fr",
   color: "text-yellow-400",
 },
- {
-     label: "Information Santé",
-     value: "contact@sante.bj",
-     type: "email",
-     icon: Mail,
-     color: "text-yellow-400",
-     href: "mailto:contact@sante.bj",
+{
+  label: "Information Santé",
+  value: "contact@sante.bj",
+  type: "email",
+  icon: Mail,
+  color: "text-yellow-400",
+  href: "mailto:contact@sante.bj",
  },
  {
-     label: "Ministère de la Santé",
-     value: "www.sante.gouv.bj",
-     type: "website",
-     icon: Globe,
-     color: "text-purple-400",
-     href: "https://sante.gouv.bj",
+  label: "Ministère de la Santé",
+  value: "www.sante.gouv.bj",
+  type: "website",
+  icon: Globe,
+  color: "text-purple-400",
+  href: "https://sante.gouv.bj",
  },
 ];
 
@@ -177,14 +175,14 @@ const emergencyContacts = [
         subtitle: "Agir aujourd’hui, c’est sauver une vie demain. Ensemble contre le cancer de la prostate.",
         description: "Sensibilisation, Prévention et Accompagnement pour tous.",
         cta: "Rejoindre le mouvement",
-        color: "from-blue-400 to-blue-700"
+        color: "from-blue-400 to-blue-500"
       },
       {
         title: "Dépistage = Vie Sauvée",
         subtitle: "Un simple test peut sauver votre vie ou celle d’un proche.",
         description: "Le dépistage précoce augmente les chances de guérison à plus de 90%.",
         cta: "En savoir plus",
-        color: "from-indigo-400 to-blue-800"
+        color: "from-blue-400 to-blue-500"
       },
       {
         title: "Accompagnement IA",
@@ -192,7 +190,7 @@ const emergencyContacts = [
         description: "Posez vos questions sans gêne:vous n’êtes jamais seul dans ce combat.",
         cta:"Discuter avec Warrior",
         action: () => setCurrentPage('chatbot'),
-        color: "from-blue-400 to-cyan-700"
+        color: "from-blue-400 to-blue-500"
       }
     ];
 
@@ -204,24 +202,24 @@ const emergencyContacts = [
     }, []);
 
     return (
-      <div className="min-h-screen animate-slide-up">
+      <div className="min-h-screen duration-1000">
         {/* Hero Section Améliorée */}
         <div className={`relative h-[650px] bg-gradient-to-br ${slides[currentSlide].color} overflow-hidden transition-all duration-[2000ms] ease-out`}>
           {/* Pattern de fond */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
           
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center animate-zoom-in-light">
             <div className="text-center text-white z-10 px-4 max-w-5xl mx-auto">
-              <div className="inline-block mb-4 px-4 py-5 rounded-full bg-white/10 shadow-md backdrop-blur-md text-sm tracking-wide uppercase animate-slide-soft border border-white/20">
-                Campagne de Sensibilisation
+              <div className="inline-block mb-4 px-4 py-5 rounded-full bg-white/10 shadow-md backdrop-blur-md text-sm tracking-wide uppercase animate-zoom-in border border-white/20">
+                Campagne de Sensibilisation pour la luttre contre le Cancer de la Prostate
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg animate-fade-in">
+              <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg animate-zoom-in ">
                 {slides[currentSlide].title}
               </h1>
-              <p className="text-xl md:text-2xl mb-8 font-medium text-white max-w-3xl mx-auto leading-relaxed">
+              <p className="animate-bounce text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-blue @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
                 {slides[currentSlide].subtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 animate-slide-soft">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
                 <button 
                   onClick={slides[currentSlide].action || (() => {})}
                   className="px-8 py-4 text-blue-200 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center gap-2 group"
@@ -252,7 +250,7 @@ const emergencyContacts = [
         </div>
 
         {/* Quick Actions Cards */}
-        <div className="max-w-15xl mx-auto px-4 -mt-20 relative z-20 pb-16">
+        <div className="max-w-15xl mx-auto px-4 -mt-20 relative z-20 pb-16 animate-pulse">
           <div className="grid md:grid-cols-3 gap-15">
             {[
               { 
@@ -267,14 +265,14 @@ const emergencyContacts = [
                 title: 'Statistiques', 
                 desc: 'Visualisez les données mondiales en temps réel pour mieux comprendre les enjeux.', 
                 icon: BarChart3, 
-                color: 'purple' 
+                color: 'blue' 
               },
               { 
                 id: 'prevention', 
                 title: 'Prévention', 
                 desc: 'Découvrez les gestes simples, les actions et les habitudes de vie pour réduire les risques.', 
                 icon: Shield, 
-                color: 'green' 
+                color: 'blue' 
               }
             ].map((card, idx) => (
               <div 
@@ -301,8 +299,8 @@ const emergencyContacts = [
         <div className="bg-blue-50 py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Impact Chiffres 2024</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Chiffres Impactants en 2024</h2>
+              <p className="text-2xl text-gray-600 max-w-2xl mx-auto">
                 Comprendre l'ampleur pour mieux agir. Voici les indicateurs clés de la lutte mondiale.
               </p>
             </div>
@@ -383,7 +381,7 @@ const emergencyContacts = [
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto bg-gray-50 scroll-smooth">
             {chatMessages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center px-4 animate-fade-in">
+              <div className="h-full flex flex-col items-center justify-center px-4 animate-zoom-in-light">
                 <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-100">
                   <Shield className="w-10 h-10 text-blue-600" />
                 </div>
@@ -616,7 +614,7 @@ const emergencyContacts = [
           </div>
 
           {/* Tableau Détaillé */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-white-100 overflow-hidden">
             <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
                <h3 className="text-lg font-bold text-gray-800">Données Détaillées par Pays</h3>
                <button className="text-blue-600 text-sm font-medium hover:underline">Voir tout</button>
@@ -667,36 +665,33 @@ const emergencyContacts = [
   return (
     <>
     {/* SCRIPTS ET STYLES ESSENTIELS */}
-    <script src="https://cdn.tailwindcss.com"></script>
+    {/* <script src="https://cdn.tailwindcss.com"></script> */}
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-      body { font-family: 'Inter', sans-serif; }
+      // body { font-family: 'Inter', sans-serif; }
       
       /* Scrollbar personnalisée */
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: #f1f5f9; }
-      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      // ::-webkit-scrollbar { width: 8px; }
+      // ::-webkit-scrollbar-track { background: #f1f5f9; }
+      // ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      // ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-      .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
-      .animate-slide-up { animation: slideUp 0.8s ease-out forwards; }
+      // .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+      // .animate-slide-up { animation: slideUp 0.8s ease-out forwards; }
 
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
+      // @keyframes fadeIn {
+      //   from { opacity: 0; }
+      //   to { opacity: 1; }
+      // }
+      // @keyframes slideUp {
+      //   from { opacity: 0; transform: translateY(20px); }
+      //   to { opacity: 1; transform: translateY(0); }
+      // }
     `}</style>
 
     <div class="flex flex-col min-h-screen text-foreground bg-[hsl(var(--background))] relative">
       {/* Navigation */}
-      <nav className={`transition-all duration-300 ` +(scrolled? "fixed top-0 w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))/10] shadow-lg": "relative bg-transparent")
-      }
-      >
-
+      <nav className={`transition-all duration-300 ` +(scrolled? "relative top-0 w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))/10] shadow-lg": "relative bg-transparent")}>
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center h-16 md:h-20">
             <div 
@@ -704,22 +699,24 @@ const emergencyContacts = [
               onClick={() => setCurrentPage('home')}
             >
               <div className="bg-blue-600 p-2 rounded-lg group-hover:rotate-12 transition-transform">
-                <Shield className="w-6 h-6 text-white" />
+              {/*logo prostate cancer*/}
+                <img src={logo} className="relative w-10 h-12 rounded-full border border-white/10 animate-pulse"/>
+                {/* <Shield className="w-6 h-6 text-white" /> */}
               </div>
-              <span className="text-2xl font-extrabold text-gray-900 tracking-tight">Blue<span className="text-blue-600">Warriors</span></span>
+              <span className="text-2xl font-extrabold text-white-900 tracking-tight">Blue<span className="text-blue-600">Warriors</span></span>
             </div>
 
             {/* Desktop Menu - CORRIGÉ */}
             <div className="hidden sm:flex items-center gap-4">
               <button 
-                onClick={() => setCurrentPage('home')}
+                onClick={() => setCurrentPage('dashboard')}
                 className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
-                  currentPage === 'home' 
+                  currentPage === 'dashboard' 
                     ? 'text-blue-600 bg-blue-50' 
                     : 'text-slate-600 hover:text-blue-600 hover:bg-gray-100'
                 }`}
               >
-                Accueil
+                Statistiques
               </button>
               <button 
                 onClick={() => setCurrentPage('chatbot')}
@@ -732,14 +729,14 @@ const emergencyContacts = [
                 WarriorAI
               </button>
               <button 
-                onClick={() => setCurrentPage('dashboard')}
+                onClick={() => setCurrentPage('home')}
                 className={`px-4 py-2 font-medium rounded-full transition-all duration-300 ${
-                  currentPage === 'dashboard' 
+                  currentPage === 'home' 
                     ? 'text-blue-600 bg-blue-50' 
                     : 'text-slate-600 hover:text-blue-600 hover:bg-gray-100'
                 }`}
               >
-                Statistiques
+                Home
               </button>
             </div>
 
@@ -800,7 +797,7 @@ const emergencyContacts = [
       </main>
 
       {/* FOOTER OPTIMISÉ - VERSION FINALE */}
-      <footer className="bg-gradient-to-br from-blue-300 via-blue-500 to-blue-700 text-white py-10 mt-16">
+      <footer className="bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500 text-white py-10 mt-16">
         <div className="max-w-6xl mx-auto px-6">
           
           {/* Grid Principal - 3 Colonnes */}
@@ -811,13 +808,13 @@ const emergencyContacts = [
               {/* Brand */}
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="bg-blue-600 p-1.5 rounded-lg">
+                  {/* <div className="bg-blue-600 p-1.5 rounded-lg">
                     <Shield className="w-5 h-5 text-white" />
-                  </div>
+                  </div> */}
                   <h3 className="text-xl font-bold">BlueWarriors</h3>
                 </div>
-                <p className="text-blue-100 text-sm leading-relaxed">
-                  Plateforme de sensibilisation contre le cancer de la prostate au Bénin.
+                <p className="text-white-200 text-sm leading-relaxed align-items-left">
+                  Plateforme de sensibilisation et pour la lutte contre le cancer de la prostate au Bénin.
                 </p>
               </div>
 
@@ -825,13 +822,9 @@ const emergencyContacts = [
               <div>
                 <h4 className="text-sm font-bold mb-3 text-blue-200">Newsletter</h4>
                 <div className="flex gap-2">
-                  <input 
-                    type="email" 
-                    placeholder="Votre email" 
-                    className="flex-1 bg-white/10 text-white text-sm px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 placeholder-blue-200"
-                  />
+                  <input type="email" placeholder="Votre email" className="flex-1 bg-white/10 text-white text-sm px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 border border-white/20 placeholder-blue-200"/>
                   <button className="bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-lg transition-colors">
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4"/>
                   </button>
                 </div>
               </div>
@@ -844,13 +837,8 @@ const emergencyContacts = [
                   { icon: Instagram, url: "https://instagram.com/dtech" },
                   { icon: Linkedin, url: "https://linkedin.com/in/dtech-afric" }
                 ].map((item, i) => (
-                  <a
-                    key={i}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all"
-                  >
+                  <a key={i} href={item.url} target="_blank" rel="noopener noreferrer"
+                  className="w-9 h-9 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all">
                     <item.icon className="w-4 h-4" />
                   </a>
                 ))}
@@ -875,15 +863,10 @@ const emergencyContacts = [
                       {/* Label + Lien */}
                       <div>
                         <p className="font-semibold text-white text-sm">{item.label}</p>
-                        <a
-                          href={item.href}
-                          target={item.type === "website" ? "_blank" : undefined}
-                          className="text-blue-200 hover:text-white transition text-sm break-all"
-                        >
+                        <a href={item.href} target={item.type === "website" ? "_blank" : undefined} className="text-blue-200 hover:text-white transition text-sm break-all">
                           {item.value}
                         </a>
                       </div>
-
                     </div>
                   </li>
                 ))}
@@ -894,13 +877,13 @@ const emergencyContacts = [
             <div className="space-y-6">
               {/* Navigation */}
               <div>
-                <h4 className="text-sm font-bold mb-3 text-blue-200">Navigation</h4>
+                <h4 className="text-sm font-bold mb-3 text-blue-200">Liens rapides</h4>
                 <ul className="space-y-2">
                   {[
                     { label: "Accueil", id: 'home' },
                     { label: "WarriorAI", id: 'chatbot' },
                     { label: "Statistiques", id: 'dashboard' },
-                    { label: "Faire un don", id: null }
+                    { label: "Faire un don", id: null } // non developpé
                   ].map((link, i) => (
                     <li key={i}>
                       <button 
@@ -917,22 +900,22 @@ const emergencyContacts = [
 
               {/* Contact */}
               <div>
-                <h4 className="text-sm font-bold mb-3 text-blue-200">Contact</h4>
+                <h4 className="text-sm font-bold mb-3 text-blue-200">Contacts</h4>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2 text-sm">
                     <MapPin className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-blue-100">Cotonou, Bénin</span>
+                    <span className="text-blue-100">Atlantique, Abomey-Calavi, Bénin</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm">
                     <Phone className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <a href="tel:+2290151344289" className="text-blue-200 hover:text-white transition">
-                      +229 01 51 34 42 89
+                    <a href="tel:+2290141730240" className="text-blue-200 hover:text-white transition">
+                      +229 01 41 73 02 40
                     </a>
                   </li>
                   <li className="flex items-start gap-2 text-sm">
                     <Mail className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
                     <a href="mailto:donaerickoulodji@gmail.com" className="text-blue-200 hover:text-white transition break-all">
-                      donaerickoulodji@gmail.com
+                      dtech.afrik@gmail.com
                     </a>
                   </li>
                 </ul>
@@ -941,24 +924,24 @@ const emergencyContacts = [
           </div>
 
           {/* Séparateur */}
-          <div className="border-t border-blue-700/50 my-6"></div>
+          {/* <div className="border-t border-blue-700/50 my-6"></div> */}
 
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <p className="text-blue-200">
-              © 2025 BlueWarriors • Novembre Bleu
+            <p className="text-yellow-200">
+              © 2025 BlueWarriors • Novembre Bleu • Prosate Cancer
             </p>
-            <div className="flex gap-4 text-blue-200">
+            {/* <div className="flex gap-4 text-blue-200">
               <a href="#" className="hover:text-white transition">Confidentialité</a>
               <span className="text-blue-400">•</span>
               <a href="#" className="hover:text-white transition">Mentions légales</a>
               <span className="text-blue-400">•</span>
               <a href="#" className="hover:text-white transition">CGU</a>
-            </div>
+            </div> */}
           </div>
 
           {/* Disclaimer */}
-          <div className="mt-6 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+          <div className="mt-6 p-3 bg-rouge-500/10 border border-blue-500/30 rounded-lg">
             <p className="text-xs text-yellow-200 text-center flex items-center justify-center gap-2">
               <Activity className="w-3 h-3" />
               En cas d'urgence médicale, appelez le SAMU au +229 21 30 73 36

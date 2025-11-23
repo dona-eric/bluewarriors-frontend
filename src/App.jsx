@@ -513,148 +513,110 @@ const emergencyContacts = [
   };
 
   const DashboardPage = () => {
+    const [statsData, setStatsData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const plotlyRefs = useRef({});
+
+    // Charger les données depuis l'API
+    useEffect(() => {
+      loadStatistics();
+    }, []);
+
+    const loadStatistics = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`${API_BASE_URL}/stats/`);
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+        setStatsData(data);
+      } catch (err) {
+        console.error('Erreur chargement statistiques:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Rendu des graphiques Plotly
+    useEffect(() => {
+      if (!statsData?.charts || typeof window.Plotly === 'undefined') return;
+
+      Object.entries(statsData.charts).forEach(([key, jsonStr]) => {
+        try {
+          const figure = JSON.parse(jsonStr);
+          const divId = `plotly-${key}`;
+          const div = document.getElementById(divId);
+          
+          if (div && figure.data) {
+            window.Plotly.newPlot(divId, figure.data, figure.layout || {}, {
+              responsive: true,
+              displayModeBar: true,
+              displaylogo: false,
+              modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+            });
+          }
+        } catch (e) {
+          console.error(`Erreur rendu graphique ${key}:`, e);
+        }
+      });
+    }, [statsData]);
+
     const maxCases = Math.max(...yearlyData.map(d => d.cases));
+
+    if (loading) {
+      return (
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600 text-lg">Chargement des statistiques...</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="min-h-screen bg-gray-50 py-12">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-red-50 border-2 border-red-200 rounded-xl p-8 text-center">
+              <Activity className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <h2 className="text-2xl font-bold text-red-900 mb-2">Erreur de chargement</h2>
+              <p className="text-red-700 mb-6">{error}</p>
+              <button 
+                onClick={loadStatistics}
+                className="px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition"
+              >
+                Réessayer
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="min-h-screen bg-gray-50 py-12 animate-fade-in">
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">Tableau de Bord</h1>
-              <p className="text-gray-600 text-lg">Surveillance mondiale du cancer de la prostate - Données 2024</p>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">Tableau de Bord Interactif</h1>
+              <p className="text-gray-600 text-lg">Surveillance mondiale du cancer de la prostate - Données en temps réel</p>
             </div>
             <div className="flex gap-2">
-                <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">Exporter PDF</button>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 shadow-md">Mise à jour</button>
-            </div>
-          </div>
-
-          {/* KPI Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {[
-              { icon: Users, label: 'Cas Mondiaux', value: stats.totalCases.toLocaleString(), change: '+1.2%', color: 'blue' },
-              { icon: Activity, label: 'Décès Annuels', value: stats.deaths.toLocaleString(), change: '-0.3%', color: 'red' },
-              { icon: TrendingUp, label: 'Incidence/100k', value: stats.incidenceRate, change: '+0.8%', color: 'orange' },
-              { icon: HeartPulse, label: 'Survie à 5 ans', value: `${stats.survivalRate}%`, change: '+2.1%', color: 'green' }
-            ].map((stat, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-4">
-                  <div className={`w-12 h-12 bg-${stat.color}-50 rounded-xl flex items-center justify-center border border-${stat.color}-100`}>
-                    <stat.icon className={`w-6 h-6 text-${stat.color}-600`} />
-                  </div>
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${
-                    stat.change.startsWith('+') && stat.color !== 'red' ? 'bg-green-100 text-green-700' : 
-                    stat.change.startsWith('-') && stat.color === 'red' ? 'bg-green-100 text-green-700' :
-                    'bg-red-100 text-red-700'
-                  }`}>
-                    {stat.change}
-                  </span>
-                </div>
-                  <p className="text-3xl font-bold text-gray-900 mb-1 tracking-tight">{stat.value}
-                  </p>
-                  <p className="text-sm text-gray-500 font-medium">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 mb-8">
-            {/* Évolution */}
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-blue-600" /> Évolution des cas (2019-2024)
-              </h3>
-              <div className="space-y-5">
-                {yearlyData.map((data, idx) => {
-                  const percentage = (data.cases / maxCases) * 100;
-                  return (
-                    <div key={idx} className="relative group">
-                      <div className="flex justify-between mb-2 text-sm">
-                        <span className="font-semibold text-gray-700">{data.year}</span>
-                        <span className="text-gray-500">{data.cases.toLocaleString()} cas</span>
-                      </div>
-                      <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-                        <div
-                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-1000 group-hover:from-blue-400 group-hover:to-indigo-500 relative"
-                          style={{ width: `${percentage}%` }}
-                        >
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Mortalité Comparée */}
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <Globe className="w-5 h-5 text-purple-600" /> Taux de Mortalité (%)
-              </h3>
-              <div className="space-y-5">
-                {countryData.sort((a, b) => (b.deaths/b.cases) - (a.deaths/a.cases)).map((country, idx) => {
-                  const rate = ((country.deaths / country.cases) * 100).toFixed(1);
-                  const isHigh = parseFloat(rate) > 15;
-                  return (
-                    <div key={idx} className="flex items-center gap-4">
-                      <span className="font-medium text-gray-700 w-28 truncate">{country.country}</span>
-                      <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${isHigh ? 'bg-red-500' : 'bg-emerald-500'}`}
-                          style={{ width: `${Math.min(parseFloat(rate) * 5, 100)}%` }}
-                        ></div>
-                      </div>
-                      <span className={`text-sm font-bold w-12 text-right ${isHigh ? 'text-red-600' : 'text-emerald-600'}`}>
-                        {rate}%
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Tableau Détaillé */}
-          <div className="bg-white rounded-xl shadow-sm border border-white-100 overflow-hidden">
-            <div className="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-               <h3 className="text-lg font-bold text-gray-800">Données Détaillées par Pays</h3>
-               <button className="text-blue-600 text-sm font-medium hover:underline">Voir tout</button>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Pays</th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider hidden md:table-cell">Population</th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Cas</th>
-                    <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider hidden sm:table-cell">Décès</th>
-                    <th className="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Létalité</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {countryData.map((country, idx) => {
-                    const mortalityRate = ((country.deaths / country.cases) * 100).toFixed(1);
-                    return (
-                      <tr key={idx} className="hover:bg-blue-50/50 transition-colors group">
-                        <td className="px-6 py-4 font-semibold text-gray-800">{country.country}</td>
-                        <td className="px-6 py-4 text-right text-gray-600 hidden md:table-cell">{country.population.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-right font-medium text-blue-900 bg-blue-50/30">{country.cases.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-right text-gray-600 hidden sm:table-cell">{country.deaths.toLocaleString()}</td>
-                        <td className="px-6 py-4 text-center">
-                          <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-bold ${
-                            parseFloat(mortalityRate) > 15
-                              ? 'bg-red-100 text-red-800'
-                              : parseFloat(mortalityRate) > 10
-                              ? 'bg-orange-100 text-orange-800'
-                              : 'bg-green-100 text-green-800'
-                          }`}>
-                            {mortalityRate}%
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <button 
+                onClick={loadStatistics}
+                className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 flex items-center gap-2"
+              >
+                <TrendingUp className="w-4 h-4" />
+                Actualiser
+              </button>
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 shadow-md">
+                Exporter PDF
+              </button>
             </div>
           </div>
         </div>
@@ -664,32 +626,7 @@ const emergencyContacts = [
 
   return (
     <>
-    {/* SCRIPTS ET STYLES ESSENTIELS */}
-    {/* <script src="https://cdn.tailwindcss.com"></script> */}
-    <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-      // body { font-family: 'Inter', sans-serif; }
-      
-      /* Scrollbar personnalisée */
-      // ::-webkit-scrollbar { width: 8px; }
-      // ::-webkit-scrollbar-track { background: #f1f5f9; }
-      // ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-      // ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-      // .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
-      // .animate-slide-up { animation: slideUp 0.8s ease-out forwards; }
-
-      // @keyframes fadeIn {
-      //   from { opacity: 0; }
-      //   to { opacity: 1; }
-      // }
-      // @keyframes slideUp {
-      //   from { opacity: 0; transform: translateY(20px); }
-      //   to { opacity: 1; transform: translateY(0); }
-      // }
-    `}</style>
-
-    <div class="flex flex-col min-h-screen text-foreground bg-[hsl(var(--background))] relative">
+    <div className="flex flex-col min-h-screen text-foreground bg-[hsl(var(--background))] relative">
       {/* Navigation */}
       <nav className={`transition-all duration-300 ` +(scrolled? "relative top-0 w-full z-50 backdrop-blur-xl bg-[hsl(var(--background)/0.7)] border-b border-[hsl(var(--border))/10] shadow-lg": "relative bg-transparent")}>
         <div className="max-w-6xl mx-auto px-4">
